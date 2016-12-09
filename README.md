@@ -27,7 +27,7 @@ The PLC is structured around sessions, i.e. a consecutive number of meetings wit
 
 | Folder | Session |
 |-----|-------------|
-| monads |  Monads for Functional Programmers|
+| [monads](monads/) |  Monads for Functional Programmers|
 
 
 
