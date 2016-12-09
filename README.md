@@ -5,8 +5,9 @@
 ## About.
 
 
-The IMDEA Software Programming Languages Club is and almost informal Programming Languages reading club, meeting approximately twice per month, provided someone brought cake.
+The IMDEA Software Programming Languages Club is and almost informal Programming Languages reading club, meeting approximately twice per month, provided someone brings cake[1].
 
+[1] Though cookies, the _physical_ ones, might do.
 
 ## Scope.
 

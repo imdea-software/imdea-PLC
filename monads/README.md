@@ -1,5 +1,5 @@
 # Monads for Functional Programmers
-===========================================================================
+=========================================================================
 
 [TO DO: scope and objectives]
 
@@ -18,6 +18,14 @@
 
 **[TO DO]**
 
-### Resources ###
+### Resources & Further Reading###
+
+There are lots of monads tutorials, guides and blog-posts around. Most of them are **not** really that useful. I find these, however, worth mentioning:
+
+1. [Monads: Programmer's Definition](https://bartoszmilewski.com/2016/11/21/monads-programmers-definition/) from [Bartoz Milewskis' Programming Caffé](https://bartoszmilewski.com/) has an __imperative-programmer-friendly__ introduction. The [next post in the series](https://bartoszmilewski.com/2016/11/30/monads-and-effects/) is a bit more advanced and, _caveat emptor_, requires speaking some Category Theory lingo. They are both intended as a part for a **CT for programmers** series.
+ 
+2. From the same author, there is also an older series of posts called "Monads for the Curious Programmer": [Part I](https://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-1/) and [Part II](https://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-2/). The Internets claim this is one of the best monad tutorials ever [Citation Needed].
+
+3. 
 
 **[TO DO]**
