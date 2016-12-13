@@ -1,7 +1,11 @@
 # Monads for ~~Functional Programmers~~ IMDEA people
 =========================================================================
 
-In this session we want to understand what's the fuss about *monads*. We might not fully understand what they are by the end of the session, we should have a practical understanding of what *can be done* using monads.
+In this session we want to understand what's the fuss about *monads*. We might not fully understand what they are by the end of the session. But, we should have a practical understanding of what *can be done* using monads.
+
+For that matter, the plan is to read a couple of papers with several examples and ready to run code --- in Haskell, of course--. On the first meeting, we will cover the seminal paper which introduced the use of monads in a _pure_ functional programming language to encapsulate imperative effects. 
+
+The rest of the meetings will cover IMDEA friendly application domains where _monads_ manifest themselves naturally. Or, sort of.
 
 What we will not see, at least in this first session:
 
@@ -30,7 +34,7 @@ _NB_ This programme is not fixed, it's a suggestion.
 
 ###Plan
 
-**[TO DO]**
+**[TO DO: Complete me!]**
 
 ### Resources & Further Reading###
 
@@ -58,5 +62,5 @@ Tom Schrijvers, Peter Stuckey, and Philip Wadler. _Monadic constraint programmin
 
 ## Further ado
 
-If you want to dwell into more interesting, and more modern, research ideas.
+If you want to dwell into the more interesting, and modern, research ideas mentioned above: you can continue down the following roads **[TO DO: Complete me!]**
 
