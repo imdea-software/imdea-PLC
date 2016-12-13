@@ -1,7 +1,7 @@
 # Monads for ~~Functional Programmers~~ IMDEA people
 =========================================================================
 
-[TO DO: scope and objectives]
+In this session we want to understand what's the fuss about *monads*. We might not fully understand what they are by the end of the session, we should have a practical understanding of what *can be done* using monads.
 
 What we will not see, at least in this first session:
 
@@ -9,14 +9,16 @@ What we will not see, at least in this first session:
 1. Computational Lambda Calculus.
 2. How to combine monads.
 3. Newer approaches to combining effects: free(r) monads, algebraic effects, extensible effects.
-4. Indexed Monads and Verification: HTT, R* and other Klieski Arrows of Outrageous fortune.
+4. Indexed Monads and Verification: HTT, F* and other _Klieski arrows of outrageous fortune_.
 
 ## Plan
 
 1. Monads for Functional Programmig.
-2. Monads for Logic Programming.
-3. A poor man's concurrency monad.
+2. Monads for Logic Programming?.
+3. A poor man's concurrency monad?.
 4. Monad's for security? / Monadic Parsers?.
+
+_NB_ This programme is not fixed, it's a suggestion.
 
 ## 1: Monads for Functional Programming
 
@@ -25,7 +27,6 @@ What we will not see, at least in this first session:
 **Host:** [@germanD](https://github.com/germanD)
 
 **Date**: Dec 16th, 2016.. 16.30hs. Meeting Room 315.
-
 
 ###Plan
 
@@ -45,11 +46,17 @@ E.Moggi. [_Notions of Computations and Monads_](http://www.disi.unige.it/person/
 
 
 
+## 2: Monads for Logic Programmers?
 
+**Paper:** 
+Tom Schrijvers, Peter Stuckey, and Philip Wadler. _Monadic constraint programming_. Available [here](http://homepages.inf.ed.ac.uk/wadler/papers/constraints/constraints.pdf).
 
+## 3: A poor man's concurrency monad
 
+**Paper:** Koen Claesen. _A poor man's concurrency monad_. Available [here]
+(http://www.di.ens.fr/~pouzet/cours/systeme/bib/koen-concurrency-poor-man-jpf93.pdf)
 
 ## Further ado
 
-If you want to dwell into more interesting research ideas.
+If you want to dwell into more interesting, and more modern, research ideas.
 
