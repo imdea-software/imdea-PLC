@@ -13,12 +13,12 @@ with Int leaves. Fancy stuff. -}
 data Term = Con Int
      | Div Term Term
      | Plus Term Term
+     deriving Show
 
 eval            :: Term -> Int
 eval (Con a)    = a
 eval (Div  t u) = eval t `div` eval u
 eval (Plus t u) = eval t + eval u
-
 
 -- Does it work ?
 
@@ -44,7 +44,7 @@ evalE (Div t u) =
                    OK b -> if b == 0
                           then Raise "Dividing by 0"
                           else OK $ a `div` b
-{- evalE (Plus a1 a2) = ?? -}
+{- evalE (Plus a1 a2) = FILL ME!! -}
 
 -- Insn't it getting a bit annoying? to repeat eval/catch trick again and again
 
@@ -56,24 +56,50 @@ type S b a  = b -> (a,b)
 
 -- eval with a one cell accumulator, counting calls to Div
 
-evalA             :: Term -> S Int Int
-evalA (Con a)   s = (a,0)
-evalA (Div t u) s = let (a,i) = evalA t s in
-                        
-:
-     case evalE t of
-         Raise e1 -> Raise e1
-         OK a -> case evalE u of
-                   Raise e2 -> Raise e2
-                   OK b -> if b == 0
-                          then Raise "Dividing by 0"
-                          else OK $ a `div` b
-
+evalA              :: Term -> S Int Int
+evalA (Con a)    s = (a,0)
+evalA (Div t u)  s = let (a,i) = evalA t s in
+                     let (b,j) = evalA u i
+                     in  (a `div` b, i + j + 1)
+evalA (Plus t u) s = let (a,i) = evalA t s in
+                     let (b,j) = evalA u i
+                     in  (a `div` b, i + j)
 
 {- From one cell to actual heaps is a long way, but we might get
    there. Do you have plans for the weekend? -}
 
+{- Excercice 1: Implement a smarter datatype of terms.
+     hint: Ever heard of high order sintax? -}
+    
+{- Excercice 2:
 
-{- Excercice: Design and evaluator supporting both Errors
-   and once cell State like in the example above.
-     Don't introduce a new datatype -}
+Design and evaluator supporting both Errors and once cell State like
+     in the example above.
+
+ hint: Don't introduce a new datatype
+
+-}
+
+
+-- Variation 3: Stone Age Output
+
+type O a = (String, a)
+
+line     :: Term -> Int -> String
+line t a  = "eval (" ++ show t ++ " <= " ++ show a ++ ['\n']
+
+evalT   :: Term -> O Int
+evalT s@(Con a) = (line s a, a)
+evalT s@(Div t v) =
+   let (t1, a) = evalT t in
+   let (t2, b) = evalT v in
+   let       c = a `div` b  
+   in  (t1 ++ t1 ++ line s c, c)
+
+-- Actually running our traces with Haskell's I/O
+
+runT m = let (a ,_) = evalT m
+         in putStr a
+
+
+
