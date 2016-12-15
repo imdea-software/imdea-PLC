@@ -29,10 +29,6 @@ instance Monad E where
                Raise e -> Raise e
                OK b  -> f b
 
-runE m = case m of
-            Raise e -> Left e
-            OK a -> Right a
-
 -- we cannot make S a Functor without defining it as a dataype
 
 data SS s a = SS { unstate :: s -> (a,s) }
@@ -52,9 +48,23 @@ instance Monad (SS s) where
    m >>= k  = SS $ \ s -> let (a, s1) = unstate m s
                           in  unstate (k a) s1 
 
+runSS :: SS Int a -> (a, Int)
+runSS m = unstate m 0 
 
-runS :: SS Int a -> (a, Int)
-runS m = unstate m 0 
+
+data OO a = OO { trace :: String, run :: a}
+
+instance Functor OO where
+   fmap f pkg  = OO (trace pkg) $ f $ run pkg
+   
+instance Applicative OO where
+   pure a    = OO "" a
+   sf <*> sv = OO (trace sf ++ trace sv) $ run sf $ run sv
+
+instance Monad OO where
+   ma >>= mk = let av = run ma in
+               let m2 = mk av
+               in OO (trace ma ++ trace m2 ) $ run m2
 
 
 -- Skeleton for a monadic evaluator, works with any monad now:
@@ -64,20 +74,98 @@ evalM (Con a)    = return a
 evalM (Div mt mu ) =
          do vt <- evalM mt
             vu <- evalM mu
-            return (vt `div` vu)
+            return $ vt `div` vu
 evalM (Plus mt mu ) =
          do vt <- evalM mt
             vu <- evalM mu
-            return (vt + vu)
+            return $ vt + vu
 
 --- tryMe
 trySS :: Term -> (Int, Int)
-trySS = runS . evalM
+trySS = runSS . evalM
 
-tryE = runE . evalM
+tryE m = putStr $ case (evalM m) of
+                    Raise e ->  e
+                    OK a -> show a ++ "\n"
+
+tryOO m =
+   do putStr $ trace $ evalM m
+      putStrLn $ show $ run $ evalM m
+
+{- So we have a generic evaluator that does not introduce new effects,
+   just binds pure computations -}
+
+{- Let's put the effects back in -}
+
+evalR  :: Term -> E Int
+evalR (Con a)    = return a
+evalR (Div mt mu ) =
+         do vt <- evalR mt
+            vu <- evalR mu
+            if vu == 0 then Raise "I ain't gonna divide by 0\n"
+            else return $ vt `div` vu
+evalR (Plus mt mu ) =
+         do vt <- evalR mt
+            vu <- evalR mu
+            return $ vt + vu
+
+tryE2 m = putStr $ case (evalR m) of
+                    Raise e ->  e
+                    OK a -> show a ++ "\n"
+
+{- For the division acumulator, we define an incrementor function, and
+ inline it before returning -}
+
+tick  :: SS Int ()
+tick = SS $ \s -> ((), s + 1)
+
+evalS  :: Term -> SS Int Int
+evalS (Con a)    = return a
+evalS (Div mt mu ) =
+         do vt <- evalS mt
+            vu <- evalS mu
+            tick
+            return $ vt `div` vu
+evalS (Plus mt mu ) =
+         do vt <- evalS mt
+            vu <- evalS mu
+            return (vt + vu)
+
+trySS2 = runSS . evalS
 
 
-{- So we have a generic evaluator that does not
-   introduce new effects incorporoate the effects,
-   just binds arrow pure computations }
+{- Finally, the tracing evaluator: -}
 
+
+out t a = OO (line t a) ()
+
+evalO  :: Term -> OO Int
+evalO t@(Con a)  = out t a >> return a
+evalO t@(Div mt mu) =
+         do vt <- evalO mt
+            out mt vt
+            vu <- evalO mu
+            out mu vu
+            let c = vt `div` vu
+            out t c
+            return c
+evalO t@(Plus mt mu ) =
+         do vt <- evalO mt
+            out mt vt
+            vu <- evalO mu
+            out mu vu
+            let c = vt + vu
+            out t c
+            return c
+
+tryO2 m =
+   do putStr $ trace $ evalO m
+      putStrLn $ show $ run $ evalO m
+
+
+{- Excercice: Combine the three monads into a big fat one
+
+  Dividing by 0 should return a trace finalizing with the exception
+  raised, and a "stack dump" of the current state.
+
+-}

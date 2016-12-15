@@ -42,7 +42,7 @@ evalE (Div t u) =
          OK a -> case evalE u of
                    Raise e2 -> Raise e2
                    OK b -> if b == 0
-                          then Raise "Dividing by 0"
+                          then Raise "I ain't gonna divide by 0 \n"
                           else OK $ a `div` b
 {- evalE (Plus a1 a2) = FILL ME!! -}
 
