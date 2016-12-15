@@ -44,6 +44,8 @@ There are lots of monads tutorials, guides and blog-posts around. Most of them a
  
 2. From the same author, there is also an older series of posts called "Monads for the Curious Programmer": [Part I](https://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-1/) and [Part II](https://bartoszmilewski.com/2011/01/09/monads-for-the-curious-programmer-part-2/).
 
+3. Another good read, maybe as a follow up to Wadler's paper is Simon Peyton Jones' [Tackling the Akward Squad](http://research.microsoft.com/en-us/um/people/simonpj/papers/marktoberdorf/mark.pdf).
+
 As the paper points out, the credit for discovering how to use monads for giving semantics to impure effectuful computations should go to E. Moggi. His IC91 paper (below) was the inspiration for the whole *monadic* revolution. If you are interesting in dwelving seriously into the subject, it is a good place to start. There might, of course, be dragons.
 
 E.Moggi. [_Notions of Computations and Monads_](http://www.disi.unige.it/person/MoggiE/ftp/ic91.pdf).
