@@ -69,10 +69,10 @@ evalA (Plus t u) s = let (a,i) = evalA t s in
 {- From one cell to actual heaps is a long way, but we might get
    there. Do you have plans for the weekend? -}
 
-{- Excercice 1: Implement a smarter datatype of terms.
+{- Excercise 1: Implement a smarter datatype of terms.
      hint: Ever heard of high order sintax? -}
     
-{- Excercice 2:
+{- Excercise 2:
 
 Design and evaluator supporting both Errors and once cell State like
      in the example above.
