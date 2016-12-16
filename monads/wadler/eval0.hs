@@ -58,13 +58,13 @@ type S b a  = b -> (a,b)
 -- eval with a one cell accumulator, counting calls to Div
 
 evalA              :: Term -> S Int Int
-evalA (Con a)    s = (a,0)
+evalA (Con a)    s = (a,s)
 evalA (Div t u)  s = let (a,i) = evalA t s in
                      let (b,j) = evalA u i
-                     in  (a `div` b, i + j + 1)
+                     in  (a `div` b, j + 1)
 evalA (Plus t u) s = let (a,i) = evalA t s in
                      let (b,j) = evalA u i
-                     in  (a + b, i + j)
+                     in  (a + b, j)
 
 {- From one cell to actual heaps is a long way, but we might get
    there. Do you have plans for the weekend? -}
@@ -94,7 +94,7 @@ evalT s@(Div t v) =
    let (t1, a) = evalT t in
    let (t2, b) = evalT v in
    let       c = a `div` b  
-   in  (t1 ++ t1 ++ line s c, c)
+   in  (t1 ++ t2 ++ line s c, c)
 
 -- Actually running our traces with Haskell's I/O
 

@@ -13,7 +13,7 @@ import Basic
 -- A: It sounds like you are volunteering for chairing another meeting.
 
 instance Functor E where
-   fmap f (OK a) = OK $ f a
+   fmap f (OK a)    = OK $ f a
    fmap f (Raise e) = Raise e
 
 instance Applicative E where
@@ -75,6 +75,10 @@ evalM (Div mt mu ) =
          do vt <- evalM mt
             vu <- evalM mu
             return $ vt `div` vu
+-- evalM (Div mt mu ) =
+--   evalM mt >>=
+--      \ vt -> evalM mu >>=
+--          \ vu -> return (vt `div` vu)
 evalM (Plus mt mu ) =
          do vt <- evalM mt
             vu <- evalM mu
@@ -143,17 +147,13 @@ evalO  :: Term -> OO Int
 evalO t@(Con a)  = out t a >> return a
 evalO t@(Div mt mu) =
          do vt <- evalO mt
-            out mt vt
             vu <- evalO mu
-            out mu vu
             let c = vt `div` vu
             out t c
             return c
 evalO t@(Plus mt mu ) =
          do vt <- evalO mt
-            out mt vt
             vu <- evalO mu
-            out mu vu
             let c = vt + vu
             out t c
             return c
@@ -163,7 +163,8 @@ tryO2 m =
       putStrLn $ show $ run $ evalO m
 
 
-{- Excercise: Combine the three monads into a big fat one
+{- Ex
+cercise: Combine the three monads into a big fat one
 
   Dividing by 0 should return a trace finalizing with the exception
   raised, and a "stack dump" of the current state.
