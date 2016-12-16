@@ -163,7 +163,7 @@ tryO2 m =
       putStrLn $ show $ run $ evalO m
 
 
-{- Excercice: Combine the three monads into a big fat one
+{- Excercise: Combine the three monads into a big fat one
 
   Dividing by 0 should return a trace finalizing with the exception
   raised, and a "stack dump" of the current state.
