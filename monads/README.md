@@ -32,9 +32,7 @@ _NB_ This programme is not fixed, it's a suggestion.
 
 **Date**: Dec 16th, 2016.. 16.30hs. Meeting Room 315.
 
-###Plan
-
-**[TO DO: Complete me!]**
+The Haskell files from the meeting, plus some excercises are in the [wadler](wadler/) folder.
 
 ### Resources & Further Reading###
 
